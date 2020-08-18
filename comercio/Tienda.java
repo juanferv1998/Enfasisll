@@ -2,16 +2,15 @@ package comercio;
 
 import java.util.*;
 
-//TODO cambiar el nombre de la clase por Tienda
 /**
  * clase que representa un establecimiento la aplicacion de comercio como tal 
  */
-public class Main{
+public class Tienda{
     private double acumulado;
     private ArrayList<Cliente> clientes;
     private ArrayList<Producto> productos;
     
-    public Main(){
+    public Tienda(){
         acumulado = 0;
         clientes = new ArrayList<>();
         productos = new ArrayList<>();
@@ -21,16 +20,16 @@ public class Main{
         if (producto.tieneUnidadesDisponibles(cantidad)){
             return cliente.agregarProductoACarrito(producto, cantidad);
         } else {
-            throw new Exception("cantidad inexistente de producto " + producto.getNombre());
+            throw new Exception("cantidad inexistente de producto " + producto.getNombre() + "("+cantidad+")");
         }
     }
     
     public static void main(String[] args) throws Exception {
-        Main tienda = new Main();
+        Tienda tienda = new Tienda();
         pruebaDiego(tienda);
     }
     
-    private static void pruebaDiego(Main tienda) throws Exception{
+    private static void pruebaDiego(Tienda tienda) throws Exception{
         tienda.productos.add(new Producto("SP80345","Dani Jedrysik","Morbi porttitor lorem id ligula.",213,1035.3));
         tienda.productos.add(new Producto("WE285878","Lucio Alishoner","Morbi non lectus.",264,1845.7));
         tienda.productos.add(new Producto("WE210393","Jasper Lamonby","Phasellus sit amet erat.",195,1922.6));
@@ -49,17 +48,26 @@ public class Main{
         tienda.clientes.add(new Cliente("Diego Felipe"));
         tienda.clientes.add(new Cliente("Juan Vergara"));
         
+        System.out.println("Productos a usar...");
+        System.out.println("con el cliente "+tienda.clientes.get(0).getNombre()+":");
+        System.out.println(tienda.productos.get(4).resumirEnTexto());
+        System.out.println(tienda.productos.get(5).resumirEnTexto());
+        System.out.println(tienda.productos.get(2).resumirEnTexto());
+        System.out.println("con el cliente "+tienda.clientes.get(1).getNombre()+":");
+        System.out.println(tienda.productos.get(6).resumirEnTexto());
+        System.out.println(tienda.productos.get(14).resumirEnTexto());
+        
         System.out.print(tienda.agregarProductoACarrito(tienda.productos.get(4), 120, tienda.clientes.get(0)));
         try {
             System.out.print(tienda.agregarProductoACarrito(tienda.productos.get(6), 120, tienda.clientes.get(1)));
             System.out.print(tienda.agregarProductoACarrito(tienda.productos.get(5), 155, tienda.clientes.get(0)));
         } catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             System.out.print(tienda.agregarProductoACarrito(tienda.productos.get(2), 195, tienda.clientes.get(0)));
             try {
                 System.out.print(tienda.agregarProductoACarrito(tienda.productos.get(14), 6, tienda.clientes.get(1)));
             } catch(Exception ex) {
-                ex.printStackTrace();
+                System.out.println(ex.getMessage());
                 System.out.println("Todo bien");
                 return;
             }

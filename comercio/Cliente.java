@@ -18,4 +18,10 @@ public class Cliente{
         carrito.agregarItem(producto, cantidad);
         return carrito.resumirEnTexto();
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+    
+    
 }
